@@ -34,6 +34,6 @@ void Game::draw() {
 		window.clear(sf::Color::Black);
 		window.draw(paddle);
 		window.draw(ball);
-		bricks.draw(bricks);
+		window.draw(bricks);
 		window.display();
 }
