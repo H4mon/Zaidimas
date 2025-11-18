@@ -12,10 +12,10 @@ void Paddle::update(sf::Time deltaTime) {
 
 	float dSec = deltaTime.asSeconds();
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		move(-speed * dSec, 0);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		move(speed * dSec, 0);
 	}
 

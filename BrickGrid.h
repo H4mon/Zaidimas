@@ -7,7 +7,7 @@ private:
 	bool isDestroyed;
 
 public:
-	Brick(sf::Vector2f positon, sf::Vector2f size, sf::Color color);
+	Brick(sf::Vector2f position, sf::Vector2f size, sf::Color color);
 	void hit();
 	bool getIsDestroyed() const;
 };
@@ -21,4 +21,5 @@ public:
 	BrickGrid();
 	void checkCollision(Ball& ball);
 	bool allBricksDestroyed() const;
+	void reset();
 };

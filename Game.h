@@ -10,10 +10,15 @@ private:
     Paddle paddle;
     Ball ball;
     BrickGrid bricks;
+
+    int score;
+    int lives;
+    bool gameRunning;
     
     void events();
     void update(sf::Time deltaTime);
     void draw();
+    void resetGame();
 
 public:
     Game();

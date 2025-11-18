@@ -49,3 +49,17 @@ bool BrickGrid::allBricksDestroyed() const {
 	}
 	return true;
 }
+void BrickGrid::reset() {
+	bricks.clear();
+
+	sf::Vector2f brickSize(70, 30);
+	sf::Color colors[] = {
+		sf::Color::Red, sf::Color::Green, sf::Color::Blue, sf::Color::Yellow, sf::Color::Magenta, sf::Color::Cyan
+	};
+	for (int row = 0; row < 5; ++row) {
+		for (int col = 0; col < 10; ++col) {
+			sf::Vector2f position(col * (brickSize.x + 5) + 25, row * (brickSize.y + 5) + 50);
+			bricks.emplace_back(position, brickSize, colors[row % 6]);
+		}
+	}
+}
