@@ -7,5 +7,5 @@ private:
 
 public:
 	Paddle();
-	void update();
+	void update(sf::Time deltaTime);
 };

@@ -1,4 +1,4 @@
-3include "Game.h"
+#include "Game.h"
 #include <SFML/Window/Keyboard.hpp>
 
 Game::Game() : window(sf::VideoMode(800, 600), "Breakout") {
@@ -25,9 +25,17 @@ void Game::events() {
 		}
 }
 
-void Game::update() {
-	paddle.update();
-	ball.update();
+void Game::update(sf::Time deltaTime) {
+	paddle.update(deltaTime);
+	ball.update(deltaTime);
+	bricks.checkCollision(ball);
+
+	if(ball.getGlobalBounds().intersects(paddle.getGlobalBounds())) {
+		ball.velocity.y = -abs(ball.velocity.y);
+	}
+	if (bricks.allBricksDestroyed()) {
+		window.close();
+	}
 }
 
 void Game::draw() {

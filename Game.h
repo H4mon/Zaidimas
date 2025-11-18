@@ -1,5 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Paddle.h"
+#include "Ball.h"
+#include "BrickGrid.h"
 
 class Game {
 private:

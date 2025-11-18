@@ -5,7 +5,7 @@ Paddle::Paddle() {
 	setSize(sf::Vector2f(100, 20));
 	setFillColor(sf::Color::White);
 	setPosition(350, 550);
-	speed = 300f;
+	speed = 300;
 }
 
 void Paddle::update(sf::Time deltaTime) {
