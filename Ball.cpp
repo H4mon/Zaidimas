@@ -6,6 +6,14 @@ Ball::Ball() {
 	setPosition(390, 530);
 	velocity = sf::Vector2f(0, 0);
 	isStuck = true;
+	launchDirX = 1;
+}
+
+void Ball::setLaunchDirection(int dir) {
+	launchDirX = dir;
+}
+int Ball::getLaunchDirection() const {
+	return launchDirX;
 }
 
 void Ball::update(sf::Time deltaTime) {
@@ -23,7 +31,7 @@ void Ball::update(sf::Time deltaTime) {
 void Ball::launch() {
 	if (isStuck) {
 		isStuck = false;
-		velocity = sf::Vector2f(250, -250);
+		velocity = sf::Vector2f(250*static_cast<float>(launchDirX), -250);
 	}
 }
 

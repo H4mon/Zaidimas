@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include "Ball.h"
 #include <SFML/Window/Keyboard.hpp>
 
 Paddle::Paddle() {
@@ -8,15 +9,17 @@ Paddle::Paddle() {
 	speed = 300;
 }
 
-void Paddle::update(sf::Time deltaTime) {
+void Paddle::update(sf::Time deltaTime, Ball& ball) {
 
 	float dSec = deltaTime.asSeconds();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		move(-speed * dSec, 0);
+		ball.setLaunchDirection(-1);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		move(speed * dSec, 0);
+		ball.setLaunchDirection(1);
 	}
 
 	if (getPosition().x < 0) setPosition(0, 550);

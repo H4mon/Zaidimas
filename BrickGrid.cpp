@@ -33,14 +33,20 @@ void BrickGrid::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 		}
 	}
 }
-void BrickGrid::checkCollision(Ball& ball) {
+int BrickGrid::checkCollision(Ball& ball) {
+	int score = 0;
+	bool collide = false;
 	for (auto& brick : bricks) {
 		if (!brick.getIsDestroyed() && ball.getGlobalBounds().intersects(brick.getGlobalBounds())) {
 			brick.hit();
-			ball.velocity.y = -ball.velocity.y;
-			break;
+			score += 10;
+			collide = true;
 		}
 	}
+	if (collide) {
+		ball.velocity.y = -ball.velocity.y;
+	}
+	return score;
 }
 bool BrickGrid::allBricksDestroyed() const {
 	for (const auto& brick : bricks) {

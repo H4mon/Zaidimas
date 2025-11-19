@@ -12,4 +12,9 @@ public:
 	void update(sf::Time deltaTime);
 	void launch();
 	void followPaddle(const Paddle& paddle);
+	void setLaunchDirection(int dir);
+	int getLaunchDirection() const;
+
+private:
+	int launchDirX; 
 };

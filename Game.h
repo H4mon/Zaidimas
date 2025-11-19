@@ -11,14 +11,24 @@ private:
     Ball ball;
     BrickGrid bricks;
 
+    enum GameState {START, PLAYING, LOSE, WIN};
+    GameState currentState;
+
+    int score;
     int lives;
+    sf::Text scoreText;
     sf::Text livesText;
+    sf::Text messageText;
+    sf::Font font;
     bool gameRunning;
     
     void events();
     void update(sf::Time deltaTime);
     void draw();
     void resetGame();
+    void drawStart();
+    void drawLose();
+    void drawWin();
 
 public:
     Game();

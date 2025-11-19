@@ -19,7 +19,7 @@ private:
 
 public:
 	BrickGrid();
-	void checkCollision(Ball& ball);
+	int checkCollision(Ball& ball);
 	bool allBricksDestroyed() const;
 	void reset();
 };
