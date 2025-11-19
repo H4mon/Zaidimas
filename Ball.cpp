@@ -26,3 +26,11 @@ void Ball::launch() {
 		velocity = sf::Vector2f(250, -250);
 	}
 }
+
+void Ball::followPaddle(const Paddle& paddle) {
+	if (isStuck) {
+		float paddleCenterX = paddle.getPosition().x + paddle.getSize().x / 2;
+		float ballX = paddleCenterX - getRadius();
+		setPosition(ballX, paddle.getPosition().y - getRadius() * 2);
+	}
+}

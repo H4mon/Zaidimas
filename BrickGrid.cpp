@@ -37,6 +37,7 @@ void BrickGrid::checkCollision(Ball& ball) {
 	for (auto& brick : bricks) {
 		if (!brick.getIsDestroyed() && ball.getGlobalBounds().intersects(brick.getGlobalBounds())) {
 			brick.hit();
+			ball.velocity.y = -ball.velocity.y;
 			break;
 		}
 	}

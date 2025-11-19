@@ -11,8 +11,8 @@ private:
     Ball ball;
     BrickGrid bricks;
 
-    int score;
     int lives;
+    sf::Text livesText;
     bool gameRunning;
     
     void events();
