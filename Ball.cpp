@@ -31,7 +31,7 @@ void Ball::update(sf::Time deltaTime) {
 void Ball::launch() {
 	if (isStuck) {
 		isStuck = false;
-		velocity = sf::Vector2f(250*static_cast<float>(launchDirX), -250);
+		velocity = sf::Vector2f(250.f*(launchDirX), -250.f);
 	}
 }
 
