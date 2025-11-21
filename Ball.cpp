@@ -12,9 +12,6 @@ Ball::Ball() {
 void Ball::setLaunchDirection(int dir) {
 	launchDirX = dir;
 }
-int Ball::getLaunchDirection() const {
-	return launchDirX;
-}
 
 void Ball::update(sf::Time deltaTime) {
 	if (!isStuck) {
