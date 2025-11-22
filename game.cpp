@@ -38,6 +38,12 @@ Game::Game() : window(sf::VideoMode(800, 600), "Breakout") {
 	messageText.setFillColor(sf::Color::White);
 	messageText.setPosition(200, 250);
 
+	pauseText.setFont(font);
+	pauseText.setCharacterSize(30);
+	pauseText.setFillColor(sf::Color::White);
+	pauseText.setString("PAUSED\n\nPress R to Restart\nPress E to Exit");
+	pauseText.setPosition(250, 200);
+
 	resetGame();
 }
 
@@ -94,14 +100,20 @@ void Game::events() {
 			window.close();
 		if (event.type == sf::Event::KeyPressed) {
 
+			if (event.key.code == sf::Keyboard::Escape) {
+				if (currentState == PLAYING) {
+					currentState = PAUSE;
+				}
+				else if (currentState == PAUSE) {
+					currentState = PLAYING;
+				}
+			}
+
 			if (currentState == START || currentState == LOSE || currentState == WIN) {
 
 				if (event.key.code == sf::Keyboard::Space) {
 					resetGame();
 					currentState = PLAYING;
-				}
-				if (event.key.code == sf::Keyboard::Escape) {
-					window.close();
 				}
 			}
 
@@ -109,10 +121,15 @@ void Game::events() {
 				if (event.key.code == sf::Keyboard::Space) {
 					ball.launch();
 				}
-
 			}
-			if (event.key.code == sf::Keyboard::R) {
-				resetGame();
+			else if (currentState == PAUSE) {
+				if (event.key.code == sf::Keyboard::E) {
+					window.close();
+				}
+				if (event.key.code == sf::Keyboard::R) {
+					resetGame();
+					currentState = PLAYING;
+				}
 			}
 		}
 	}
@@ -145,6 +162,7 @@ void Game::update(sf::Time deltaTime) {
 			ball.followPaddle(paddle);
 		}
 		else {
+			updateHighScore();
 			currentState = LOSE;
 		}
 	}
@@ -156,6 +174,13 @@ void Game::update(sf::Time deltaTime) {
 		updateHighScore();
 		currentState = WIN;
 	}
+}
+
+void Game::drawPause() {
+	sf::RectangleShape overlay(sf::Vector2f(800, 600));
+	overlay.setFillColor(sf::Color(0, 0, 0, 150));
+	window.draw(overlay);
+	window.draw(pauseText);
 }
 
 void Game::drawStart() {
@@ -189,6 +214,15 @@ void Game::draw() {
 	}
 	else if (currentState == LOSE) drawLose();
 	else if (currentState == WIN) drawWin();
+	else if (currentState == PAUSE) {
+		window.draw(paddle);
+		window.draw(ball);
+		window.draw(bricks);
+		window.draw(scoreText);
+		window.draw(livesText);
+		window.draw(highScoreText);
+		drawPause();
+	}
 
 	window.display();
 }

@@ -12,7 +12,7 @@ private:
     Ball ball;
     BrickGrid bricks;
 
-    enum GameState {START, PLAYING, LOSE, WIN};
+    enum GameState {START, PLAYING, LOSE, WIN, PAUSE};
     GameState currentState;
 
     int score;
@@ -22,6 +22,7 @@ private:
     sf::Text livesText;
 	sf::Text highScoreText;
     sf::Text messageText;
+    sf::Text pauseText;
     sf::Font font;
     bool gameRunning;
     
@@ -32,6 +33,7 @@ private:
     void drawStart();
     void drawLose();
     void drawWin();
+	void drawPause();
 	void loadHighScore();
 	void saveHighScore();
 	void updateHighScore();
