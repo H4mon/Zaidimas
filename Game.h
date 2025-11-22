@@ -3,6 +3,7 @@
 #include "Paddle.h"
 #include "Ball.h"
 #include "BrickGrid.h"
+#include <fstream>
 
 class Game {
 private:
@@ -16,8 +17,10 @@ private:
 
     int score;
     int lives;
+    int highScore;
     sf::Text scoreText;
     sf::Text livesText;
+	sf::Text highScoreText;
     sf::Text messageText;
     sf::Font font;
     bool gameRunning;
@@ -29,6 +32,9 @@ private:
     void drawStart();
     void drawLose();
     void drawWin();
+	void loadHighScore();
+	void saveHighScore();
+	void updateHighScore();
 
 public:
     Game();

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <SFML/Window/Keyboard.hpp>
+#include <fstream>
 
 Game::Game() : window(sf::VideoMode(800, 600), "Breakout") {
 
@@ -7,14 +8,15 @@ Game::Game() : window(sf::VideoMode(800, 600), "Breakout") {
 	if(font.getInfo().family.empty()) {
 		font.loadFromFile("C:/Windows/Fonts/arial.ttf");
 	}
+
+	loadHighScore();
+
 	lives = 3;
 	livesText.setFont(font);
 	livesText.setString("Lives: 3");
 	livesText.setCharacterSize(24);
 	livesText.setFillColor(sf::Color::White);
 	livesText.setPosition(650, 10);
-
-	currentState = START;
 
 	score = 0;
 	scoreText.setFont(font);
@@ -23,12 +25,44 @@ Game::Game() : window(sf::VideoMode(800, 600), "Breakout") {
 	scoreText.setFillColor(sf::Color::White);
 	scoreText.setPosition(10, 10);
 
+	highScoreText.setFont(font);
+	highScoreText.setString("High Score: " + std::to_string(highScore));
+	highScoreText.setCharacterSize(24);
+	highScoreText.setFillColor(sf::Color::White);
+	highScoreText.setPosition(300, 10);
+
+	currentState = START;
+
 	messageText.setFont(font);
 	messageText.setCharacterSize(24);
 	messageText.setFillColor(sf::Color::White);
 	messageText.setPosition(200, 250);
 
 	resetGame();
+}
+
+void Game::loadHighScore() {
+	std::ifstream file("highscore.txt");
+	if (file.is_open()) {
+		file >> highScore;
+	}
+	else {
+		highScore = 0;
+	}
+}
+
+void Game::saveHighScore() {
+	std::ofstream file("highscore.txt");
+	if (file.is_open()) {
+		file << highScore;
+	}
+}
+
+void Game::updateHighScore() {
+	if (score > highScore) {
+		highScore = score;
+		saveHighScore();
+	}
 }
 
 void Game::resetGame() {
@@ -116,8 +150,10 @@ void Game::update(sf::Time deltaTime) {
 	}
 	scoreText.setString("Score: " + std::to_string(score));
 	livesText.setString("Lives: " + std::to_string(lives));
+	highScoreText.setString("High Score: " + std::to_string(highScore));
 
 	if (bricks.allBricksDestroyed()) {
+		updateHighScore();
 		currentState = WIN;
 	}
 }
@@ -149,6 +185,7 @@ void Game::draw() {
 		window.draw(bricks);
 		window.draw(scoreText);
 		window.draw(livesText);
+		window.draw(highScoreText);
 	}
 	else if (currentState == LOSE) drawLose();
 	else if (currentState == WIN) drawWin();
